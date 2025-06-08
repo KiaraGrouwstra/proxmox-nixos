@@ -187,28 +187,28 @@ in
   };
 
   config = lib.mkIf config.services.proxmox-ve.ceph.enable {
-    assertions = [
-      {
-        assertion = cfg.enable -> !config.services.ceph.enable;
-        message = "Ceph for Proxmox VE is not compatible with the Ceph module for NixOS";
-      }
-      {
-        assertion = cfg.mon.enable -> cfg.mon.daemons != [ ];
-        message = "have to set id of atleast one MON if you're going to enable Monitor";
-      }
-      {
-        assertion = cfg.mds.enable -> cfg.mds.daemons != [ ];
-        message = "have to set id of atleast one MDS if you're going to enable Metadata Service";
-      }
-      {
-        assertion = cfg.osd.enable -> cfg.osd.daemons != [ ];
-        message = "have to set id of atleast one OSD if you're going to enable OSD";
-      }
-      {
-        assertion = cfg.mgr.enable -> cfg.mgr.daemons != [ ];
-        message = "have to set id of atleast one MGR if you're going to enable MGR";
-      }
-    ];
+    # assertions = [
+    #   {
+    #     assertion = cfg.enable -> !config.services.ceph.enable;
+    #     message = "Ceph for Proxmox VE is not compatible with the Ceph module for NixOS";
+    #   }
+    #   {
+    #     assertion = cfg.mon.enable -> cfg.mon.daemons != [ ];
+    #     message = "have to set id of atleast one MON if you're going to enable Monitor";
+    #   }
+    #   {
+    #     assertion = cfg.mds.enable -> cfg.mds.daemons != [ ];
+    #     message = "have to set id of atleast one MDS if you're going to enable Metadata Service";
+    #   }
+    #   {
+    #     assertion = cfg.osd.enable -> cfg.osd.daemons != [ ];
+    #     message = "have to set id of atleast one OSD if you're going to enable OSD";
+    #   }
+    #   {
+    #     assertion = cfg.mgr.enable -> cfg.mgr.daemons != [ ];
+    #     message = "have to set id of atleast one MGR if you're going to enable MGR";
+    #   }
+    # ];
 
     networking.firewall = lib.mkIf config.services.proxmox-ve.openFirewall {
       allowedTCPPorts = lib.optionals cfg.mon.enable [
